@@ -37,10 +37,11 @@
         </tr>
 
         <tr>
-            <td id="tableform">
+            <td id="tableform"><form id="formfields">
                 First Name : <input type="text" name="fname" id="fname">
                 Last Name :<input type="text" name="lname" id="lname">
                 <input type="submit" id="btn" value="Save"> 
+                </form>
             </td>
         </tr>
         
@@ -54,6 +55,7 @@
     <script src="js/jquery.js"></script>
     <script>
         $(document).ready(function(){
+    // 1 step ->  fetch data from database 
               function loadtable(){
                  $.ajax({
                     url : "ajax-load.php",
@@ -64,7 +66,41 @@
                 }); // ajax function
             } // loadtable function
             loadtable();  // call load table function
-        }); // ready function
+
+            // 2 step ->  this is for submit the data after btn click
+            $("#btn").on("click",function(e){
+                e.preventDefault();  
+                var fname = $("#fname").val();
+                var lname = $("#lname").val();
+
+                if(fname == "" || lname ==""){
+                    alert("all fileds are required");
+                } else{ 
+                  $.ajax({
+                    url : "ajax-insert.php",
+                    type : "POST",
+                    data : {firstname : fname ,  lastname : lname},
+                    success : function(data){          
+                            if(data==1){
+                                $("#formfields").trigger("reset");
+                                loadtable();
+                            }else{
+                                alert("Failed");
+                            }
+                    },
+                   
+            // complete function return status code of ajax request whatever request  is success or failed it run both cases 
+                    complete :function(xhr,status){
+                        console.log(xhr.status);
+                        console.log(status);
+                    }
+                });
+            } // else statement off
+            }); // form btn function 
+
+
+
+        }); // ready function close
     </script>
 </body>
 </html>
