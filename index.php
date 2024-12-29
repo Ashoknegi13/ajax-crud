@@ -59,5 +59,12 @@
             </td>
         </tr>
     </table>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $(document).ready(function(){
+                
+        }); // ready function
+    </script>
 </body>
 </html>
