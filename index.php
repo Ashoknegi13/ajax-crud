@@ -46,16 +46,7 @@
         
         <tr>
             <td id="table-data">
-             <table border="1px solid black" width="100%" cellspacing="0px" cellpadding="10px">
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Ashok negi</td>
-                </tr>
-             </table>
+              
             </td>
         </tr>
     </table>
@@ -63,7 +54,16 @@
     <script src="js/jquery.js"></script>
     <script>
         $(document).ready(function(){
-                
+              function loadtable(){
+                 $.ajax({
+                    url : "ajax-load.php",
+                    type : 'GET',
+                    success : function(data){
+                    $("#table-data").html(data);
+                    }
+                }); // ajax function
+            } // loadtable function
+            loadtable();  // call load table function
         }); // ready function
     </script>
 </body>
