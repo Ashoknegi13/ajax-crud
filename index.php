@@ -62,6 +62,10 @@
                     type : 'GET',
                     success : function(data){
                     $("#table-data").html(data);
+                    },
+                    complete :function(xhr,status){
+                        console.log(xhr.status);
+                        console.log(status);
                     }
                 }); // ajax function
             } // loadtable function
@@ -98,6 +102,29 @@
             } // else statement off
             }); // form btn function 
 
+ // 3 step ->  this is for delete button (delete a data from database)
+            $(document).on("click",".delete-btn",function(){
+                var userid = $(this).data("did");
+                var element = this;
+
+                $.ajax({
+                    url : "ajax-delete.php",
+                    type : "POST",
+                    data : {id : userid},
+                    success  : function(data){
+                        if(data==1){
+                        $(element).closest("tr").fadeOut();
+                        }else{
+                            alert("failed");
+                        }
+                    }, 
+
+                    complete :function(xhr,status){
+                        console.log(xhr.status);
+                        console.log(status);
+                    }
+                });
+            });
 
 
         }); // ready function close
