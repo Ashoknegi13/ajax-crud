@@ -96,7 +96,9 @@
     <table id="main" border="0px" cellpspacing="0px">
         <tr>
             <td id="header">
-                <h1>Add Records with php & ajax</h1></td>
+                <h1>Add Records with php & ajax</h1>
+                Search : <input type="search" id="search" name="search"></td>
+                      
         </tr>
 
         <tr>
@@ -241,7 +243,25 @@
                 });
 
              });
-    
+
+           // this is fro search term 
+           $('#search').on("keyup",function(){
+                var searchterm =  $(this).val();
+                $.ajax({
+                        url : "ajax-search.php",
+                        type : "POST",
+                        data : {search : searchterm},
+                        success : function(data){
+                         $('#table-data').html(data);
+                        },
+                        complete :function(xhr,status){
+                            console.log(status);
+                            console.log(xhr.status);
+                        }
+
+                });
+           });
+             
 
         }); // ready function close
     </script>
